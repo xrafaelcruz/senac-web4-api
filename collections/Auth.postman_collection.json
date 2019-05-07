@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "c8897ca1-2044-48e4-86d6-cb260d15585b",
+		"name": "Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Criar token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4fd3b4d-65c6-498c-b9cb-13ef68f9a4b0",
+						"exec": [
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set(\"token\", jsonData.token);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"xrafaelcruz\",\n\t\"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/auth/token",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

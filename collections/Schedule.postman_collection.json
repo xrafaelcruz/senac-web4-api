@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "2d9f7549-d936-4dfd-b488-5a693067988e",
+		"name": "Schedule",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Adicionar agendamento",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\": \"01/05/2019\",\n\t\"time\": \"20:20\",\n\t\"user\": \"5cca235dfff2c70ab8142d33\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/schedule",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedule"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar agendamentos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/schedule/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedule",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca um agendamento pelo id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/schedule/5cca332d070a880220241bbf",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedule",
+						"5cca332d070a880220241bbf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar usuário pelo username",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/schedule/user/5cca235dfff2c70ab8142d33",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedule",
+						"user",
+						"5cca235dfff2c70ab8142d33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar agendamento",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\": \"01/05/2019\",\n\t\"time\": \"20:50\",\n\t\"user\": \"5cca235dfff2c70ab8142d33\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/schedule/5cca332d070a880220241bbf",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedule",
+						"5cca332d070a880220241bbf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar agendamento",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"jose\",\n\t\"password\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/schedule/5cca314db627111d94fc1241",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedule",
+						"5cca314db627111d94fc1241"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enviar email",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/user/email/5cc216f1d6c99b484afb93cc",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"email",
+						"5cc216f1d6c99b484afb93cc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

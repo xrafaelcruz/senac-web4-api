@@ -1,0 +1,29 @@
+-Criar a pasta bd dentro da pasta mongodb
+- Acessar a pasta bin e usar o bash
+- $ ./mongod -dbpath ../bd
+- Abrir outro bash na pasta bin
+- $ ./mongo
+- $ show dbs
+- $ use app_produtos
+- $ show collections
+(db faz associação ao app_produtos)
+- $ db.produtos.find()
+- $ db.produtos.count()
+- $ db.produtos.insert({nome:"mesa",preco:300})
+- $ db.produtos.find().pretty()
+- $ db.produtos.insertMany([{nome:"cadeira",preco:45,cor:"marrom"},{nome:"bide",preco:80.32}])
+- $ db.produtos.remove({_id:ObjectId("5ca68df4d356c7c3498cf523")})
+- $ db.produtos.update({_id:ObjectId("5ca68df4d356c7c3498cf523")}, {nome: "bide novo"})
+
+db.user.insert({username:"rafael",password:"123"})
+db.user.insert({username:"rafael",password:"123"})
+
+
+AS buscas por ID deve utilizar o -> ObjectId("5ca68df4d356c7c3498cf523")
+
+Usar o mlab para criar o banco na nuvem
+
+Agreggation (tipo joins)
+
+replace altera um pedaço e o update altera todo o objeto, 
+podem excluir propriedades que foram esquecidadas(tomar cuidado)
