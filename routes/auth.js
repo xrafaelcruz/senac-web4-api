@@ -28,7 +28,7 @@ router.post('/token', function(req, res, next) {
 
         } else if (!user || user == null) {
 
-            res.sendStatus(401);
+            res.status(401).json({ "error": "Usuário nao encontrado" });
 
         }  else if (user.password == req.body.password) {
 
@@ -40,7 +40,7 @@ router.post('/token', function(req, res, next) {
 
         } else {
 
-            res.sendStatus(401);
+            res.status(401).json({ "error": "Nao foi possível executar essa operacao" });
 
         }
 		
