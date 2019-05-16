@@ -53,7 +53,8 @@ router.get('/user/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
 	var schedule = new Schedule();
 	schedule.date = req.body.date;
-	schedule.time = req.body.time;
+	schedule.hours = req.body.hours;
+	schedule.service = req.body.service;
 	schedule.user = req.body.user;
 
 	schedule.save(function(error) {
@@ -75,7 +76,8 @@ router.put('/:id', function(req, res, next) {
 		}
 
 		schedule.date = req.body.date;
-		schedule.time = req.body.time;
+		schedule.hours = req.body.hours;
+		schedule.service = req.body.service;
 		schedule.user = req.body.user;
 
 		schedule.save(function(error) {
