@@ -1,157 +1,137 @@
 // Dependencies
-var express = require('express');
-var mongoose = require('mongoose');
-var nodemailer = require('nodemailer');
+var express = require("express")
+var mongoose = require("mongoose")
+var nodemailer = require("nodemailer")
 
 // Helpers
-var User = require('./../model/User');
-var config = require('./../config');
+var User = require("./../model/User")
+var config = require("./../config")
 
 // Variables
-var router = express.Router();
+var router = express.Router()
 
 // Connection
-mongoose.connect(config.db);
+mongoose.connect(config.db)
 
 // Endpoints
-router.get('/', function(req, res, next) {
-	User.find(function(err, users) {
+router.get("/", function(req, res, next) {
+  User.find(function(err, users) {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      res.json(users)
+    }
+  })
+})
 
-		if (err) {
-			res.status(500).send(err);
-		}
-		else {
-			res.json(users);
-		}
+router.get("/:id", function(req, res, next) {
+  User.findById(req.params.id, function(error, user) {
+    if (error) {
+      res.send(error)
+    }
 
-	});
-});
+    res.json(user)
+  })
+})
 
-router.get('/:id', function(req, res, next) {
-	User.findById(req.params.id, function(error, User) {
+router.get("/username/:username", function(req, res, next) {
+  User.findOne({ username: req.params.username }, function(error, user) {
+    if (error) {
+      res.send(error)
+    }
 
-		if (error) {
-			res.send(error);
-		}
-			
-		res.json(User);
+    res.json(user)
+  })
+})
 
-	});
-});
+router.post("/", function(req, res, next) {
+  var user = new User()
+  user.username = req.body.username
+  user.password = req.body.password
+  user.email = req.body.email
+  user.name = req.body.name
+  user.phone = req.body.phone
 
-router.get('/username/:username', function(req, res, next) {
-	User.findOne({ 'username': req.params.username }, function(error, user) {
+  if (
+    req.body.username &&
+    req.body.password &&
+    req.body.email &&
+    req.body.name &&
+    req.body.phone
+  ) {
+    user.save(function(error) {
+      if (error) {
+        res.status(500).send(error)
+      }
 
-		if (error) {
-			res.send(error);
-		}
-			
-		res.json(user);
+      res.sendStatus(201)
+    })
+  } else {
+    res.sendStatus(400)
+  }
+})
 
-	});
-});
+router.post("/email/:id", function(req, res, next) {
+  User.findById(req.params.id, function(error, user) {
+    if (error) {
+      res.send(error)
+    }
 
-router.post('/', function(req, res, next) {
-	var user = new User();
-	user.username = req.body.username;
-	user.password = req.body.password;
-	user.email = req.body.email;
-	user.name = req.body.name;
-	user.phone = req.body.phone;
+    // enviar o email
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "rafaelcruzx@gmail.com",
+        pass: ""
+      }
+    })
 
-	if (req.body.username && 
-		req.body.password &&
-		req.body.email &&
-		req.body.name &&
-		req.body.phone) 
-	{
+    const mailOptions = {
+      from: "rafaelcruzx@gmail.com",
+      to: "rafaelcruzx@gmail.com",
+      subject: "E-mail enviado usando Node!" + user.username,
+      text: "Bem fácil, não? ;)"
+    }
 
-		user.save(function(error) {
+    transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log("Email enviado: " + info.response)
+      }
+    })
 
-			if (error) {
-				res.status(500).send(error);
-			}
-	
-			res.sendStatus(201);
-	
-		});
+    res.json(user)
+  })
+})
 
-	} else {
+router.put("/:id", function(req, res, next) {
+  User.findById(req.params.id, function(error, updatedUser) {
+    if (error) {
+      res.send(error)
+    }
 
-        res.sendStatus(400)
+    updatedUser.username = req.body.username
+    updatedUser.password = req.body.password
 
-	}
-});
+    updatedUser.save(function(error) {
+      if (error) {
+        res.send(error)
+      }
 
-router.post('/email/:id', function(req, res, next) {
-	User.findById(req.params.id, function(error, user) {
+      res.sendStatus(200)
+    })
+  })
+})
 
-		if (error) {
-			res.send(error);
-		}
-			
-		// enviar o email
-		const transporter = nodemailer.createTransport({
-			service: "gmail",
-			auth: {
-				user: "rafaelcruzx@gmail.com",
-				pass: ""
-			}
-		});
+router.delete("/:id", function(req, res, next) {
+  User.remove({ _id: req.params.id }, function(error) {
+    if (error) {
+      res.send(error)
+    }
 
-		const mailOptions = {
-			from: 'rafaelcruzx@gmail.com',
-			to: 'rafaelcruzx@gmail.com',
-			subject: 'E-mail enviado usando Node!' + user.username,
-			text: 'Bem fácil, não? ;)'
-		}
+    res.sendStatus(200)
+  })
+})
 
-		transporter.sendMail(mailOptions, function(error, info){
-			if (error) {
-				console.log(error);
-			} else {
-				console.log('Email enviado: ' + info.response);
-			}
-		});
-
-		res.json(user);
-
-	});
-});
-
-router.put('/:id', function(req, res, next) {
-	User.findById(req.params.id, function(error, updatedUser) {
-
-		if (error) {
-			res.send(error);
-		}
-
-		updatedUser.username = req.body.username;
-		updatedUser.password = req.body.password;
-
-		updatedUser.save(function(error) {
-
-			if(error) {
-				res.send(error);
-			}
-
-			res.sendStatus(200);
-
-		});
-
-	});
-});
-
-router.delete('/:id', function(req, res, next) {
-	User.remove({ _id: req.params.id }, function(error) {
-
-		if (error) {
-			res.send(error);
-		}
-
-		res.sendStatus(200);
-
-	});
-});
-        
-module.exports = router;
+module.exports = router
