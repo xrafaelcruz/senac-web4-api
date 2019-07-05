@@ -6,7 +6,8 @@ var Expense = new Schema(
   {
     name: String,
     value: Number,
-    expenseGroup: { type: ObjectId, ref: "expenseGroup" }
+    idExpenseGroup: { type: ObjectId, ref: "expenseGroup" },
+    idReceipt: { type: ObjectId, ref: "receipt" }
   },
   {
     versionKey: false

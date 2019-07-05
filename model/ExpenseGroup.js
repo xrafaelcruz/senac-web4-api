@@ -1,10 +1,12 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var ExpenseGroup = new Schema(
   {
-    name: String,
-    percentage: Number
+    title: String,
+    percentage: Number,
+    idReceipt: [{ type: ObjectId, ref: "receipt" }]
   },
   {
     versionKey: false

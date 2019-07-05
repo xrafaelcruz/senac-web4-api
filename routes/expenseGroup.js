@@ -43,41 +43,62 @@ router.get("/name/:name", function(req, res, next) {
   });
 });
 
+router.get("/receipt/:idReceipt", function(req, res, next) {
+  ExpenseGroup.findOne({ idReceipt: req.params.idReceipt }, function(
+    error,
+    group
+  ) {
+    if (error) {
+      res.send(error);
+    }
+
+    res.json(group);
+  });
+});
+
+var createGroup = function(group, res) {
+  var newGroup = new ExpenseGroup();
+  newGroup.name = group.name;
+  newGroup.percentage = group.percentage;
+  newGroup.idReceipt = group.idReceipt;
+
+  newGroup.save(function(error) {
+    if (error) {
+      res.status(500).send(error);
+    }
+
+    res.sendStatus(201);
+  });
+};
 router.post("/", function(req, res, next) {
-  if (req.body.name && req.body.percentage) {
-    var group = new ExpenseGroup();
-    group.name = req.body.name;
-    group.percentage = req.body.percentage;
-
-    group.save(function(error) {
-      if (error) {
-        res.status(500).send(error);
-      }
-
-      res.sendStatus(201);
-    });
+  if (req.body.name && req.body.percentage && req.body.idReceipt) {
+    createGroup(req.body, res);
   } else {
     res.sendStatus(400);
   }
 });
 
 router.put("/:id", function(req, res, next) {
-  ExpenseGroup.findById(req.params.id, function(error, group) {
-    if (error) {
-      res.send(error);
-    }
-
-    group.name = req.body.name;
-    group.percentage = req.body.percentage;
-
-    group.save(function(error) {
+  if (req.body.name && req.body.percentage) {
+    ExpenseGroup.findById(req.params.id, function(error, group) {
       if (error) {
         res.send(error);
       }
 
-      res.sendStatus(200);
+      group.name = req.body.name;
+      group.percentage = req.body.percentage;
+
+      group.save(function(error) {
+        if (error) {
+          res.send(error);
+        }
+
+        res.sendStatus(200);
+      });
     });
-  });
+  } else {
+    res.sendStatus(400);
+  }
 });
 
 router.delete("/:id", function(req, res, next) {
@@ -90,4 +111,7 @@ router.delete("/:id", function(req, res, next) {
   });
 });
 
-module.exports = router;
+module.exports = {
+  router,
+  createGroup
+};
