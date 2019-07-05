@@ -1,0 +1,8 @@
+db.save(function(err, result){
+  if(err) {
+    response = { error: true, message: "Error adding data" };
+  } else {
+    response = { error: false, message: "Data added", id: result._id };
+  }
+  res.json(response);
+});

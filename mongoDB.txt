@@ -15,7 +15,7 @@
 - $ db.produtos.remove({_id:ObjectId("5ca68df4d356c7c3498cf523")})
 - $ db.produtos.update({_id:ObjectId("5ca68df4d356c7c3498cf523")}, {nome: "bide novo"})
 
-db.user.insert({username:"rafael",password:"123"})
+db.user.insert({username:"xrafaelcruz",password:"123"})
 db.user.insert({username:"rafael",password:"123"})
 
 
@@ -25,5 +25,5 @@ Usar o mlab para criar o banco na nuvem
 
 Agreggation (tipo joins)
 
-replace altera um pedaço e o update altera todo o objeto, 
+replace altera um pedaço e o update altera todo o objeto,
 podem excluir propriedades que foram esquecidadas(tomar cuidado)
