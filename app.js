@@ -5,10 +5,9 @@ var logger = require("morgan");
 var cors = require("cors");
 
 // Routes import
-var authRouter = require("./routes/auth");
-var usersRouter = require("./routes/user");
-var expenseGroupRouter = require("./routes/expenseGroup");
-var monthlyReportRouter = require("./routes/monthlyReport");
+var auth = require("./routes/auth");
+var users = require("./routes/user");
+var report = require("./routes/report");
 
 // Variables
 var app = express();
@@ -23,11 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-app.use("/auth", authRouter.router);
-app.use("/user", usersRouter);
-app.use("/expenseGroup", authRouter.validateUser);
-app.use("/expenseGroup", expenseGroupRouter);
-app.use("/monthlyReport", authRouter.validateUser);
-app.use("/monthlyReport", monthlyReportRouter);
+app.use("/auth", auth.router);
+app.use("/user", users);
+app.use("/report", auth.validateUser);
+app.use("/report", report);
 
 module.exports = app;

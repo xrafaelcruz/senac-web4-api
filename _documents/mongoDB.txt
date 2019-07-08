@@ -1,6 +1,6 @@
 -Criar a pasta bd dentro da pasta mongodb
 - Acessar a pasta bin e usar o bash
-- $ ./mongod -dbpath ../bd
+- $ ./mongod -dbpath ../db
 - Abrir outro bash na pasta bin
 - $ ./mongo
 - $ show dbs

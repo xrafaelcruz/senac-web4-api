@@ -19,10 +19,8 @@ router.post("/token", function(req, res, next) {
   if (!req.body.username || !req.body.password) {
     res.sendStatus(401);
   }
-  console.log(req.body.username);
-  User.findOne({ username: req.body.username }, function(error, user) {
-    console.log(user);
 
+  User.findOne({ username: req.body.username }, function(error, user) {
     if (error) {
       res.send(error);
     } else if (!user || user == null) {
@@ -56,7 +54,6 @@ var validateUser = function(req, res, next) {
       if (error) {
         res.status(401).send(error);
       } else {
-        console.log(userId);
         next();
       }
     });
