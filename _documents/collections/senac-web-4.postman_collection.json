@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "c1fff0d0-3fa2-4731-8340-1fb56fde9196",
+		"name": "senac-web-4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth - Criar token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4fd3b4d-65c6-498c-b9cb-13ef68f9a4b0",
+						"exec": [
+							"pm.test(\"Salvar o token\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set(\"token\", jsonData.token);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"xrafaelcruz\",\n\t\"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/auth/token",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "report - Buscar todos de um usuario",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/receipt/5d1e956199a863107ae5b8fa",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"receipt",
+						"5d1e956199a863107ae5b8fa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "receipt - Criar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-auth-token",
+						"value": " {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"value\": \"1000\",\n    \"date\": \"2019/07/07\",\n    \"idUser\": \"5d1e956199a863107ae5b8fa\",\n    \"expenseGroupList\": [\n      {\n        \"name\": \"Fazer o que quiser\",\n        \"percentage\": 10,\n        \"expenseList\": [\n          {\n            \"name\": \"Festa 1\",\n            \"value\": 50\n          }\n        ]\n      }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/receipt/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"receipt",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "receipt - Atualizar",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"value\": \"1000\",\n    \"date\": \"2019/07/07\",\n    \"idUser\": \"5d1e956199a863107ae5b8fa\",\n    \"expenseGroupList\": [\n      {\n        \"name\": \"Fazer o que quiser\",\n        \"percentage\": 10,\n        \"expenseList\": [\n          {\n            \"name\": \"Festa 1\",\n            \"value\": 50\n          },\n        {\n            \"name\": \"Festa 2\",\n            \"value\": 40\n          }\n        ]\n      }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/receipt/5d214e1fac05ef0aa0898c74",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"receipt",
+						"5d214e1fac05ef0aa0898c74"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "receipt - Deletar",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": " {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Aposentadoria\",\n\t\"percentage\": 15\n}"
+				},
+				"url": {
+					"raw": "{{host}}/receipt/5d214ddf6e619b0a41b233ff",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"receipt",
+						"5d214ddf6e619b0a41b233ff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user - Buscar todos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/user/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user - Buscar por id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/user/5cca235dfff2c70ab8142d33",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"5cca235dfff2c70ab8142d33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user - Buscar por username",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/user/username/rafael",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"username",
+						"rafael"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user - Criar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"r1\",\n\t\"password\": \"123\",\n\t\"email\": \"xrafaelcruz@gmail.com\",\n\t\"name\": \"R1\",\n\t\"phone\": \"51981493060\",\n\t\"profile\": \"normal\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user - Enviar email",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/user/email/5cc216f1d6c99b484afb93cc",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"email",
+						"5cc216f1d6c99b484afb93cc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user - Atualizar",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"jose\",\n\t\"password\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/5cc21e0a203e8a48ecb65364",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"5cc21e0a203e8a48ecb65364"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user - Deletar",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"jose\",\n\t\"password\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/user/5cc21e0a203e8a48ecb65364",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user",
+						"5cc21e0a203e8a48ecb65364"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
