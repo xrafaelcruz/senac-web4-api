@@ -12,7 +12,7 @@ var router = express.Router();
 var keyword = "SEN@CR$";
 
 // Conection
-mongoose.connect(enviroments.db);
+mongoose.connect(enviroments.db, { useNewUrlParser: true });
 
 // Endpoints
 router.post("/token", function(req, res, next) {
@@ -36,8 +36,8 @@ router.post("/token", function(req, res, next) {
 
       res.status(201).send({ token: token, user: user });
     } else {
-      res.status(401).json({
-        error: "Nao foi possível executar essa operacao"
+      res.status(500).json({
+        error: "Usuário/Senha incorreto"
       });
     }
   });

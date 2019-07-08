@@ -11,7 +11,7 @@ var enviroments = require("./../enviroments");
 var router = express.Router();
 
 // Connection
-mongoose.connect(enviroments.db);
+mongoose.connect(enviroments.db, { useNewUrlParser: true });
 
 // Endpoints
 router.get("/", function(req, res, next) {
@@ -136,7 +136,8 @@ router.put("/:id", function(req, res, next) {
 });
 
 router.delete("/:id", function(req, res, next) {
-  User.remove({ _id: req.params.id }, function(error) {
+  User.deleteOne({ _id: req.params.id }, function(error) {
+    console.log(error);
     if (error) {
       res.send(error);
     }

@@ -10,7 +10,7 @@ var enviroments = require("./../enviroments");
 var router = express.Router();
 
 // Connection
-mongoose.connect(enviroments.db);
+mongoose.connect(enviroments.db, { useNewUrlParser: true });
 
 // Endpoints
 router.get("/:id", function(req, res, next) {
