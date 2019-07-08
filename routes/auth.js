@@ -34,7 +34,7 @@ router.post("/token", function(req, res, next) {
         { expiresIn: "1h" }
       );
 
-      res.status(201).send({ token: token });
+      res.status(201).send({ token: token, user: user });
     } else {
       res.status(401).json({
         error: "Nao foi possível executar essa operacao"
