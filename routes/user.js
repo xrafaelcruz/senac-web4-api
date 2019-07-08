@@ -50,23 +50,28 @@ router.post("/", function(req, res, next) {
     req.body.password &&
     req.body.email &&
     req.body.name &&
-    req.body.phone &&
-    req.body.profile
+    req.body.phone
   ) {
-    var user = new User();
-    user.username = req.body.username;
-    user.password = req.body.password;
-    user.email = req.body.email;
-    user.name = req.body.name;
-    user.phone = req.body.phone;
-    user.profile = req.body.profile;
+    User.findOne({ username: req.body.username }, function(err, foundedUser) {
+      if (!foundedUser) {
+        var user = new User();
+        user.username = req.body.username;
+        user.password = req.body.password;
+        user.email = req.body.email;
+        user.name = req.body.name;
+        user.phone = req.body.phone;
+        user.profile = req.body.profile ? req.body.profile : "normal";
 
-    user.save(function(error) {
-      if (error) {
-        res.status(500).send(error);
+        user.save(function(error) {
+          if (error) {
+            res.status(500).send(error);
+          }
+
+          res.sendStatus(201);
+        });
+      } else if (foundedUser) {
+        res.status(409).send({ error: "Esse usuário já existe" });
       }
-
-      res.sendStatus(201);
     });
   } else {
     res.sendStatus(400);
@@ -113,8 +118,12 @@ router.put("/:id", function(req, res, next) {
       res.send(error);
     }
 
-    updatedUser.username = req.body.username;
-    updatedUser.password = req.body.password;
+    if (req.body.username) updatedUser.username = req.body.username;
+    if (req.body.password) updatedUser.password = req.body.password;
+    if (req.body.email) updatedUser.email = req.body.email;
+    if (req.body.name) updatedUser.name = req.body.name;
+    if (req.body.phone) updatedUser.phone = req.body.phone;
+    if (req.body.profile) updatedUser.profile = req.body.profile;
 
     updatedUser.save(function(error) {
       if (error) {
