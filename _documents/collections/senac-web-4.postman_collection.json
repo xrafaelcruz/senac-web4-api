@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c1fff0d0-3fa2-4731-8340-1fb56fde9196",
+		"_postman_id": "5f37af45-a59c-43f8-9730-af2110f35423",
 		"name": "senac-web-4",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -75,20 +75,49 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{host}}/receipt/5d1e956199a863107ae5b8fa",
+					"raw": "{{host}}/report/user/5d237654a58260eb5ce4928f",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"receipt",
-						"5d1e956199a863107ae5b8fa"
+						"report",
+						"user",
+						"5d237654a58260eb5ce4928f"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "receipt - Criar",
+			"name": "report - Buscar por id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/report/5d24e6978c256fc22c6656c3",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"report",
+						"5d24e6978c256fc22c6656c3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "report - Criar",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -106,15 +135,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"value\": \"1000\",\n    \"date\": \"2019/07/07\",\n    \"idUser\": \"5d1e956199a863107ae5b8fa\",\n    \"expenseGroupList\": [\n      {\n        \"name\": \"Fazer o que quiser\",\n        \"percentage\": 10,\n        \"expenseList\": [\n          {\n            \"name\": \"Festa 1\",\n            \"value\": 50\n          }\n        ]\n      }\n    ]\n}"
+					"raw": "{\n\t\"value\": 1000,\n    \"date\": \"2019/07/07\",\n    \"idUser\": \"5d1e956199a863107ae5b8fa\",\n    \"expenseGroupList\": [\n      {\n        \"name\": \"Fazer o que quiser\",\n        \"percentage\": 10,\n        \"expenseList\": [\n          {\n            \"name\": \"Festa 1\",\n            \"value\": 50\n          }\n        ]\n      }\n    ]\n}"
 				},
 				"url": {
-					"raw": "{{host}}/receipt/",
+					"raw": "{{host}}/report/",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"receipt",
+						"report",
 						""
 					]
 				}
@@ -122,7 +151,7 @@
 			"response": []
 		},
 		{
-			"name": "receipt - Atualizar",
+			"name": "report - Atualizar",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -134,8 +163,8 @@
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"body": {
@@ -143,12 +172,12 @@
 					"raw": "{\n\t\"value\": \"1000\",\n    \"date\": \"2019/07/07\",\n    \"idUser\": \"5d1e956199a863107ae5b8fa\",\n    \"expenseGroupList\": [\n      {\n        \"name\": \"Fazer o que quiser\",\n        \"percentage\": 10,\n        \"expenseList\": [\n          {\n            \"name\": \"Festa 1\",\n            \"value\": 50\n          },\n        {\n            \"name\": \"Festa 2\",\n            \"value\": 40\n          }\n        ]\n      }\n    ]\n}"
 				},
 				"url": {
-					"raw": "{{host}}/receipt/5d214e1fac05ef0aa0898c74",
+					"raw": "{{host}}/report/5d214e1fac05ef0aa0898c74",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"receipt",
+						"report",
 						"5d214e1fac05ef0aa0898c74"
 					]
 				}
@@ -156,7 +185,7 @@
 			"response": []
 		},
 		{
-			"name": "receipt - Deletar",
+			"name": "report - Deletar",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -177,12 +206,12 @@
 					"raw": "{\n\t\"name\": \"Aposentadoria\",\n\t\"percentage\": 15\n}"
 				},
 				"url": {
-					"raw": "{{host}}/receipt/5d214ddf6e619b0a41b233ff",
+					"raw": "{{host}}/report/5d214ddf6e619b0a41b233ff",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"receipt",
+						"report",
 						"5d214ddf6e619b0a41b233ff"
 					]
 				}
@@ -357,16 +386,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\": \"jose\",\n\t\"password\": \"1\"\n}"
+					"raw": "{\n\t\"username\": \"xrafaelcruz\",\n\t\"password\": \"123\"\n}"
 				},
 				"url": {
-					"raw": "{{host}}/user/5cc21e0a203e8a48ecb65364",
+					"raw": "{{host}}/user/5d237654a58260eb5ce4928f",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"user",
-						"5cc21e0a203e8a48ecb65364"
+						"5d237654a58260eb5ce4928f"
 					]
 				}
 			},
