@@ -4,7 +4,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var Report = new Schema(
   {
-    value: String,
+    value: Number,
     date: Date,
     idUser: { type: ObjectId, ref: "user" },
     expenseGroupList: [

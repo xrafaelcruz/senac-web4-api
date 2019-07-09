@@ -40,13 +40,13 @@ router.post("/", function(req, res, next) {
     req.body.idUser &&
     req.body.expenseGroupList
   ) {
-    var user = new Report();
-    user.value = req.body.value;
-    user.date = req.body.date;
-    user.idUser = req.body.idUser;
-    user.expenseGroupList = req.body.expenseGroupList;
+    var report = new Report();
+    report.value = req.body.value;
+    report.date = req.body.date;
+    report.idUser = req.body.idUser;
+    report.expenseGroupList = req.body.expenseGroupList;
 
-    user.save(function(error) {
+    report.save(function(error) {
       if (error) {
         res.status(500).send(error);
       }
