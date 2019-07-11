@@ -2,6 +2,7 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var nodemailer = require("nodemailer");
+var bcrypt = require("bcrypt");
 
 // Helpers
 var User = require("./../model/User");
@@ -9,6 +10,7 @@ var enviroments = require("./../enviroments");
 
 // Variables
 var router = express.Router();
+var saltRounds = 10;
 
 // Connection
 mongoose.connect(enviroments.db, { useNewUrlParser: true });
@@ -56,7 +58,7 @@ router.post("/", function(req, res, next) {
       if (!foundedUser) {
         var user = new User();
         user.username = req.body.username;
-        user.password = req.body.password;
+        user.password = bcrypt.hashSync(req.body.password, saltRounds);
         user.email = req.body.email;
         user.name = req.body.name;
         user.phone = req.body.phone;
@@ -119,7 +121,9 @@ router.put("/:id", function(req, res, next) {
     }
 
     if (req.body.username) updatedUser.username = req.body.username;
-    if (req.body.password) updatedUser.password = req.body.password;
+    if (req.body.password) {
+      updatedUser.password = bcrypt.hashSync(req.body.password, saltRounds);
+    }
     if (req.body.email) updatedUser.email = req.body.email;
     if (req.body.name) updatedUser.name = req.body.name;
     if (req.body.phone) updatedUser.phone = req.body.phone;

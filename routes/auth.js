@@ -2,6 +2,7 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var jwt = require("jsonwebtoken");
+var bcrypt = require("bcrypt");
 
 // Helpers
 var enviroments = require("./../enviroments");
@@ -25,7 +26,7 @@ router.post("/token", function(req, res, next) {
       res.send(error);
     } else if (!user || user == null) {
       res.status(401).json({ error: "Usuário nao encontrado" });
-    } else if (user.password == req.body.password) {
+    } else if (bcrypt.compareSync(req.body.password, user.password)) {
       var token = jwt.sign(
         {
           id: user.id
